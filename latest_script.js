@@ -1,4 +1,4 @@
-// ==UserScript==test
+// ==UserScript==
 // @name         ДЛЯ ИТД от MIRRONAKE
 // @description  cocucku13 + mirronake for bratishkinoff
 // @version      11.422
