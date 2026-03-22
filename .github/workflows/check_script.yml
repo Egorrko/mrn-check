@@ -15,8 +15,27 @@ jobs:
       - name: Download script
         run: curl -s https://ru.mrrnk.com/script/itd.user.js -o latest_script.js
       - name: Commit and push if changed
+        id: commit_step
         run: |
           git config user.name "Version Monitor"
           git config user.email "monitor@example.com"
           git add latest_script.js
-          git diff --quiet && git diff --staged --quiet || (git commit -m "Script updated: $(date)" && git push)
+          if git diff --quiet && git diff --staged --quiet; then
+            echo "changed=false" >> $GITHUB_OUTPUT
+          else
+            git commit -m "Script updated: $(date)"
+            git push
+            echo "changed=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Send Telegram notification
+        if: steps.commit_step.outputs.changed == 'true'
+        uses: appleboy/telegram-action@master
+        with:
+          to: ${{ secrets.TELEGRAM_TO }}
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          message: |
+            🚀 Скрипт обновлен!
+            Репозиторий: ${{ github.repository }}
+            Время: $(date)
+            Проверить изменения: https://github.com/${{ github.repository }}/commits/main
