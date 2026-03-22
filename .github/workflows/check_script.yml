@@ -17,7 +17,10 @@ jobs:
 
       - name: Beautify JS code
         run: |
-          npx prettier --plugin=prettier-plugin-estree --parser babel latest_script.js --write
+          # Устанавливаем prettier локально в папку раннера
+          npm install prettier
+          # Запускаем форматирование. Флаг --parser babel отлично справляется с JS
+          npx prettier latest_script.js --write --parser babel --print-width 120 --tab-width 2
 
       - name: Commit and push if changed
         id: commit_step
