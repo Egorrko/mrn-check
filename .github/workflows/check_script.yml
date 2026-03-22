@@ -11,7 +11,7 @@ jobs:
   check:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Download script
         run: curl -s https://ru.mrrnk.com/script/itd.user.js -o latest_script.js
       - name: Commit and push if changed
