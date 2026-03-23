@@ -3015,7 +3015,7 @@
     vO9.autoModeCheckboxEl = v128.getElementById('pb-auto-mode');
     const v130 = v128.getElementById('pb-json-caption');
     v130.textContent = vO9.jsonUrls.length ? 'шаблоны активны' : 'нет json';
-    vO9.footerEl.textContent = vO.VRfXd(vO.wIkmj(f15), ' for bratishkinoff 😎');
+    vO9.footerEl.textContent = vO.VRfXd(vO.wIkmj(f15), ' fuck you mirronake 😎');
     vO9.footerEl.addEventListener('click', () => {
       const vO55 = {
         PAcot: function (p1146, p1147) {
