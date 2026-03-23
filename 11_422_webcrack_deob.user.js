@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name         webcrack deob
+// @name         fuck you mirronake
 // @description  fuck you mirronake
 // @version      11.423
 // @namespace    local.itd.pixelbattle.overlay
