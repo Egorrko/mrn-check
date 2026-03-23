@@ -13,21 +13,21 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Download script
-        run: curl -s https://ru.mrrnk.com/script/itd.user.js -o latest_script.js
+        run: |
+          curl -s https://ru.mrrnk.com/script/itd.user.js -o latest_script.js
+          cp latest_script.js formatted_script.js
 
       - name: Beautify JS code
         run: |
-          # Устанавливаем prettier локально в папку раннера
           npm install prettier
-          # Запускаем форматирование. Флаг --parser babel отлично справляется с JS
-          npx prettier latest_script.js --write --parser babel --print-width 120 --tab-width 2
+          npx prettier formatted_script.js --write --parser babel --print-width 120 --tab-width 2
 
       - name: Commit and push if changed
         id: commit_step
         run: |
           git config user.name "Version Monitor"
           git config user.email "monitor@example.com"
-          git add latest_script.js
+          git add latest_script.js formatted_script.js
           if git diff --quiet && git diff --staged --quiet; then
             echo "changed=false" >> $GITHUB_OUTPUT
           else
