@@ -5,28 +5,28 @@
   "templates": [
     {
       "name": "ХРЯК",
-      "image": "https://ru.mrrnk.com/C4CK",
+      "image": "https://github.com/Egorrko/mrn-check/raw/refs/heads/master/pb_assets/C4CK",
       "x": 0,
       "y": 855,
       "group": "5opka"
     },
     {
       "name": "Ханов и Кактус",
-      "image": "https://ru.mrrnk.com/j2aU",
+      "image": "https://github.com/Egorrko/mrn-check/raw/refs/heads/master/pb_assets/j2aU",
       "x": 0,
       "y": 462,
       "group": "5opka"
     },
     {
       "name": "СВИННОЕ РЫЛО ЕБАННОЕ",
-      "image": "https://ru.mrrnk.com/WA7U",
+      "image": "https://github.com/Egorrko/mrn-check/raw/refs/heads/master/pb_assets/WA7U",
       "x": 225,
       "y": 315,
       "group": "5opka"
     },
     {
       "name": "Головоломка",
-      "image": "https://ru.mrrnk.com/yobu",
+      "image": "https://github.com/Egorrko/mrn-check/raw/refs/heads/master/pb_assets/yobu",
       "x": 105,
       "y": 746,
       "group": "5opka"

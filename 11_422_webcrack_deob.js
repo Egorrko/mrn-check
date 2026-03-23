@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         webcrack deob
 // @description  fuck you mirronake
-// @version      11.422
+// @version      11.423
 // @namespace    local.itd.pixelbattle.overlay
 // @match        https://pixel.itd.com/*
 // @match        https://pixel.xn--d1ah4a.com/*
@@ -9,8 +9,6 @@
 // @grant        GM_addStyle
 // @connect      *
 // @run-at       document-idle
-// @updateURL    https://ru.mrrnk.com/script/itd.user.js
-// @downloadURL  https://ru.mrrnk.com/script/itd.user.js
 // ==/UserScript==
 (function () {
   const vO = {
@@ -1583,7 +1581,7 @@
       return p830(p831);
     },
     wuBda: '._0DYDGUU9 {',
-    kPCOu: 'pb_overlay_v11422',
+    kPCOu: 'pb_overlay_v11423',
     tdlRC: 'canvas._6v8P-A3V',
     JQesa: 'main canvas',
     wRokG: '[class*="palette"] [style*="background"]',
@@ -1630,7 +1628,7 @@
     vO.DwoTw(GM_addStyle, '._0DYDGUU9 {\n  position: fixed !important;\n  left: 12px !important;\n  bottom: 12px !important;\n  top: auto !important;\n  z-index: 2000000 !important;\n}');
   } catch (e) {
   }
-  const v7 = 'pb_overlay_v11422';
+  const v7 = 'pb_overlay_v11423';
   const vO5 = {
     overlayZIndex: 5,
     uiZIndex: 1000000,
@@ -1641,7 +1639,7 @@
     paletteRecheckMs: 4000,
     maxMismatchPixelsPerFrame: 7000,
     mismatchMinZoom: 5,
-    storageKey: 'pb_overlay_v11422:settings',
+    storageKey: 'pb_overlay_v11423:settings',
     uiDefaultX: 14,
     uiDefaultY: 100,
     transparentThreshold: 16,
@@ -1863,7 +1861,7 @@
   }
   function f17() {
     try {
-      const v18 = localStorage.getItem('pb_overlay_v11422:settings');
+      const v18 = localStorage.getItem('pb_overlay_v11423:settings');
       if (!v18) {
         return {};
       }
@@ -1876,8 +1874,8 @@
     return {
       ...vO.SoqpX(f, vO5.defaultSettings),
       ...vO.UCDNe(p875, {}),
-      autoMode: false,
-      autoColor: true,
+      autoMode: p875?.autoMode ?? false,
+      autoColor: p875?.autoColor ?? true,
       packEnabled: {
         ...vO5.defaultSettings.packEnabled || {},
         ...p875?.packEnabled || {}
@@ -1894,7 +1892,7 @@
   }
   function f19() {
     try {
-      localStorage.setItem('pb_overlay_v11422:settings', JSON.stringify(vO9.settings));
+      localStorage.setItem('pb_overlay_v11423:settings', JSON.stringify(vO9.settings));
     } catch (e2) {
       console.warn('[PB Overlay] Failed to persist settings:', e2);
     }
@@ -2723,6 +2721,10 @@
       TumGj: 'no-cache'
     };
     vO9.groupIndex = new Map();
+    // Гарантируем, что объекты настроек определены
+    vO9.settings.packEnabled = vO9.settings.packEnabled || {};
+    vO9.settings.groupEnabled = vO9.settings.groupEnabled || {};
+    vO9.settings.templateEnabled = vO9.settings.templateEnabled || {};
     for (const v110 of vO9.templates) {
       if (!vO9.groupIndex.has(v110.group)) {
         vO9.groupIndex.set(v110.group, []);
@@ -2735,13 +2737,13 @@
     f19();
   }
   function f49(p1086) {
-    return vO.YwdAF(vO9.settings.packEnabled[p1086], false);
+    return vO.YwdAF(vO9.settings.packEnabled?.[p1086], false);
   }
   function f50(p1087) {
-    return vO.VJbnM(vO9.settings.groupEnabled[p1087], false);
+    return vO.VJbnM(vO9.settings.groupEnabled?.[p1087], false);
   }
   function f51(p1088) {
-    return vO.gdpDR(vO9.settings.templateEnabled[p1088], false);
+    return vO.gdpDR(vO9.settings.templateEnabled?.[p1088], false);
   }
   async function f52(p1089) {
     const vO49 = {
@@ -3214,6 +3216,9 @@
     };
     if (!vO9.panel) {
       return;
+    }
+    if (typeof vO9.settings.opacity !== 'number') {
+      vO9.settings.opacity = vO5.defaultSettings.opacity ?? 0.65;
     }
     vO9.opacityValueEl.textContent = vO9.settings.opacity.toFixed(2);
     vO9.opacitySliderEl.value = String(Math.round(vO9.settings.opacity * 100));
