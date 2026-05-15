@@ -1,49 +1,49 @@
-name: Monitor Script Updates
-on:
-  schedule:
-    - cron: '*/15 * * * *' 
-  workflow_dispatch:
+# name: Monitor Script Updates
+# on:
+#   schedule:
+#     - cron: '*/15 * * * *' 
+#   workflow_dispatch:
 
-permissions:
-  contents: write
+# permissions:
+#   contents: write
 
-jobs:
-  check:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - name: Download script
-        run: |
-          curl -s https://ru.mrrnk.com/script/itd.user.js -o latest_script.js
-          cp latest_script.js formatted_script.js
+# jobs:
+#   check:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: actions/checkout@v4
+#       - name: Download script
+#         run: |
+#           curl -s https://ru.mrrnk.com/script/itd.user.js -o latest_script.js
+#           cp latest_script.js formatted_script.js
 
-      - name: Beautify JS code
-        run: |
-          npm install prettier
-          npx prettier formatted_script.js --write --parser babel --print-width 120 --tab-width 2
+#       - name: Beautify JS code
+#         run: |
+#           npm install prettier
+#           npx prettier formatted_script.js --write --parser babel --print-width 120 --tab-width 2
 
-      - name: Commit and push if changed
-        id: commit_step
-        run: |
-          git config user.name "Version Monitor"
-          git config user.email "monitor@example.com"
-          git add latest_script.js formatted_script.js
-          if git diff --quiet && git diff --staged --quiet; then
-            echo "changed=false" >> $GITHUB_OUTPUT
-          else
-            git commit -m "Script updated: $(date)"
-            git push
-            echo "changed=true" >> $GITHUB_OUTPUT
-          fi
+#       - name: Commit and push if changed
+#         id: commit_step
+#         run: |
+#           git config user.name "Version Monitor"
+#           git config user.email "monitor@example.com"
+#           git add latest_script.js formatted_script.js
+#           if git diff --quiet && git diff --staged --quiet; then
+#             echo "changed=false" >> $GITHUB_OUTPUT
+#           else
+#             git commit -m "Script updated: $(date)"
+#             git push
+#             echo "changed=true" >> $GITHUB_OUTPUT
+#           fi
 
-      - name: Send Telegram notification
-        if: steps.commit_step.outputs.changed == 'true'
-        uses: appleboy/telegram-action@master
-        with:
-          to: ${{ secrets.TELEGRAM_TO }}
-          token: ${{ secrets.TELEGRAM_TOKEN }}
-          format: html
-          message: |
-            🚀 Скрипт обновлен!
-            Репозиторий: ${{ github.repository }}
-            <a href="https://github.com/${{ github.repository }}/commit/${{ github.sha }}">Посмотреть весь Diff</a>
+#       - name: Send Telegram notification
+#         if: steps.commit_step.outputs.changed == 'true'
+#         uses: appleboy/telegram-action@master
+#         with:
+#           to: ${{ secrets.TELEGRAM_TO }}
+#           token: ${{ secrets.TELEGRAM_TOKEN }}
+#           format: html
+#           message: |
+#             🚀 Скрипт обновлен!
+#             Репозиторий: ${{ github.repository }}
+#             <a href="https://github.com/${{ github.repository }}/commit/${{ github.sha }}">Посмотреть весь Diff</a>
